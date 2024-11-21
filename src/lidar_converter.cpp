@@ -5,14 +5,14 @@ LidarConverter::LidarConverter()
 {
   // Initialize the subscription to PointCloud2
   pointcloud_subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-    "/livox/lidar",
+    "/nonground" /*ground_filter output topic name*/,
     rclcpp::QoS(10),
     std::bind(&LidarConverter::callbackPointCloud, this, std::placeholders::_1)
   );
 
   // Initialize the publisher for CustomMsg
   custommsg_publisher_ = this->create_publisher<livox_ros_driver2::msg::CustomMsg>(
-    "/livox/lidar_custom",  // Same topic name
+    "/livox/lidar" /*fast_lio expected input topic name*/,
     rclcpp::QoS(10)
   );
 }
